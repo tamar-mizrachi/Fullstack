@@ -1,7 +1,7 @@
-using VidShare.Core.Repozitories;
+using VidShare.Core.Repositories;
 using VidShare.Core.Services;
 using VidShare.Data;
-using VidShare.Data.Repozitories;
+using VidShare.Data.Repositories;
 using VidShare.Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,8 +13,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserService,UserService>();
-builder.Services.AddScoped<IUserRepozitory,UserRepozitory>();
-builder.Services.AddSingleton<DataContext>();//לחבר את זה לדטה ביס
+builder.Services.AddScoped<IUserRepository,UserRepository>();
+builder.Services.AddScoped<IVideoService, VideoService>();
+builder.Services.AddScoped<IVideoRepository, VideoRepository>();
+builder.Services.AddDbContext<DataContext>();
+//builder.Services.AddSingleton<DataContext>();//לחבר את זה לדטה ביס
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

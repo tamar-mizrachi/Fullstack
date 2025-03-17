@@ -9,7 +9,10 @@ namespace VidShare.Core.Services
 {
     public interface IUserService
     {
-         List<User> GetList();
-
+        List<User> GetAll();
+        User? GetById(int id);
+        User Add(User user);
+        User Update(User user);
+        void Delete(int id);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,16 +8,15 @@ using VidShare.Core.Models;
 
 namespace VidShare.Data
 {
-    public class DataContext
+    public class DataContext:DbContext
     {
-        public List<User> users { get; set; }
+        public DbSet<User> users { get; set; }
+        public DbSet<Video> videos { get; set; }
 
-        public DataContext()
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            users = new List<User>
-            {
-                new User { Id = 1, Name = "name", Email = "name@gmail.com" }
-            };
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=sample_db");
         }
+
     }
 }

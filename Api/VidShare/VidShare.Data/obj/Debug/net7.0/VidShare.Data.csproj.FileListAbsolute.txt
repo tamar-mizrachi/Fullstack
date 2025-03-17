@@ -13,3 +13,5 @@ C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidSha
 C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\obj\Debug\net7.0\refint\VidShare.Data.dll
 C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\obj\Debug\net7.0\VidShare.Data.pdb
 C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\obj\Debug\net7.0\ref\VidShare.Data.dll
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\bin\Debug\net7.0\VidShare.Data.runtimeconfig.json
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\obj\Debug\net7.0\VidShare.Data.genruntimeconfig.cache
