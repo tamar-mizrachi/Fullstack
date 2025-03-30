@@ -9,11 +9,8 @@ namespace VidShare.Core.Repositories
 {
     public interface IVideoRepository
     {
-        List<Video> GetAll();
-        Video GetById(int id);
-        Video Add(Video video);
         Video Update(Video video);
-        Video Delete(int id);
+        void Delete(int id);
 
     }
 }

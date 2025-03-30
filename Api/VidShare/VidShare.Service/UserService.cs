@@ -11,32 +11,40 @@ namespace VidShare.Service
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepozitory;
-        public UserService(IUserRepository userRepozitory)
+        private readonly IRepositoryManager _irepositoryManager ;
+        public UserService(IRepositoryManager irepositoryManager)
         {
-            _userRepozitory = userRepozitory;
+            _irepositoryManager = irepositoryManager;
         }
-        public List<User> GetAll()
+        public async Task<IEnumerable<User>> GetAllAsync()
         {
-            return _userRepozitory.GetAll();
+            return await _irepositoryManager.Users.GetAllAsync();
         }
         public User? GetById(int id)
         {
-            return _userRepozitory.GetById(id);
+            return _irepositoryManager.Users.GetById(id);
         }
-        public User Add(User user)
+        public async Task< User> AddAsync(User user)
         {
-            return _userRepozitory.Add(user);
+            var newUser=await _irepositoryManager.Users.AddAsync(user);
+            _irepositoryManager.Save();
+            return newUser;
         }
         public User Update(User user)
         {
-            return _userRepozitory.Update(user);
+           var newUser= _irepositoryManager.Users.Update(user);
+            _irepositoryManager.Save();
+            return newUser;
         }
         public void Delete(int id)
         {
-            _userRepozitory.Delete(id);
+            _irepositoryManager.Users.Delete(GetById(id));
+            _irepositoryManager.Save();
+        }
+        public User GetByLogin(string name,string password)
+        {
+
+            return  _irepositoryManager.Users.GetByLogin(name,password);
         }
     }
-
-
 }

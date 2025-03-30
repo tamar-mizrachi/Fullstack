@@ -10,13 +10,18 @@ namespace VidShare.Data
 {
     public class DataContext:DbContext
     {
-        public DbSet<User> users { get; set; }
+        public DbSet<Business_detailes> businessDetailes { get; set; }
         public DbSet<Video> videos { get; set; }
+        public DbSet<User> users { get; set; }
+        public DbSet<Category> categorys { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=sample_db");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=VidShareDB");
         }
 
     }
+
+  
 }

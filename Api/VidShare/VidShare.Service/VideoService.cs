@@ -9,33 +9,42 @@ using VidShare.Core.Services;
 
 namespace VidShare.Service
 {
-    public  class VideoService: IVideoService
+    public class VideoService : IVideoService
     {
-        private readonly IVideoRepository _videoRepository;
-        public VideoService(IVideoRepository videoRepository)
+        private readonly IRepositoryManager _irepositoryManager;
+        public VideoService(IRepositoryManager irepositoryManager)
         {
-            _videoRepository = videoRepository;
+            _irepositoryManager = irepositoryManager;
         }
-        public List<Video> GetAll()
+
+        public async Task<IEnumerable<Video>> GetAllAsync()
         {
-            return _videoRepository.GetAll();
+            return await _irepositoryManager.videos.GetAllAsync(); 
         }
+    
         public Video? GetById(int id)
         {
-            return _videoRepository.GetById(id);
+            return _irepositoryManager.videos.GetById(id);
         }
-        public Video Add(Video video) { 
-        return _videoRepository.Add(video);
+        public async Task<Video> AddAsync(Video video)
+        {
+            var newVideo=await _irepositoryManager.videos.AddAsync(video);
+            _irepositoryManager.Save();
+            return newVideo;
         }
         public Video Update(Video video)
         {
-            return _videoRepository.Update(video);
+           var newVideo= _irepositoryManager.videos.Update(video);
+            _irepositoryManager.Save();
+            return newVideo;
         }
-        public Video Delete(int id)
+        public void Delete(int id)
         {
-            return _videoRepository.Delete(id);
+            _irepositoryManager.videos.Delete(GetById(id));
+            _irepositoryManager.Save();
         }
 
-      
     }
 }
+
+

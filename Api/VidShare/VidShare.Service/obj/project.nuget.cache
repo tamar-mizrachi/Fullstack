@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "uusEv2MtjeONC7LbdL8qfOF/q9fgwV1UkrFMgXolXOxdSAp/BTmStLzeVv2t7CP8rTAo+w/W54xwd2ioTt0Bxw==",
+  "dgSpecHash": "20M63dYIHGsbNZHI7KnQRl7TvmDCyHxPm6Ecqad24as0wF2ByqtBYkcT6HD2IhQ35/4GnHoXphCATHpo0KH/ZA==",
   "success": true,
   "projectFilePath": "C:\\Users\\user1\\Documents\\תכנות תמי\\Fullstack-Project\\Api\\VidShare\\VidShare.Service\\VidShare.Service.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\user1\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

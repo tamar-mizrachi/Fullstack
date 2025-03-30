@@ -1,4 +1,4 @@
-#root {
+/*#root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,4 +39,64 @@
 
 .read-the-docs {
   color: #888;
+}*/
+/* App.css */
+
+/* body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+} */
+
+/* Home.css */
+
+/* Layout for the home page */
+/* .home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:baseline;
+  height: 100vh;
+  background-color: #f0f0f0;  שינוי צבע הרקע 
+} */
+
+/* Header with the logo */
+/* .header {
+   width: 200%;  */
+  /* max-width:min-content; */
+
+  /* display: flex;
+  justify-content: flex-start;
+  padding: 20px;
+  background-color: #007bff;  צבע בגוון הלוגו 
+} */
+
+/* .logo {
+  width: 150px;
+} */
+
+/* Buttons */
+/* .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 50px;
 }
+
+.btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.btn:hover {
+  background-color: #340bae; /* שינוי צבע בלחיצה 
+  
+} */

@@ -16,7 +16,9 @@ namespace VidShare.Core.Models
         public int CreatorId { get;set; }
         public string NameTalk { get; set; }
         public string VideoUrl { get; set; }
-
-       // public string Category { get; set; }
+        public string ?Category { get; set; }
+        public string ?transcription { get; set; }
+        public User user { get; set; }
+        public Category category { get; set; }    
     }
 }

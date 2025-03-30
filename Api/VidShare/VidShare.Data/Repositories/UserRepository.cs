@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,35 +9,29 @@ using VidShare.Core.Repositories;
 
 namespace VidShare.Data.Repositories
 {
-    public class UserRepository: IUserRepository
+    public class UserRepository: Repository<User>, IUserRepository
     {
         private readonly DataContext _context;
-        public UserRepository(DataContext context)
+        private readonly DbSet<User> _dbSet;
+
+        public UserRepository(DataContext context):base(context) 
         {
             _context = context;
+            _dbSet=_context.Set<User>();
         }
-        public List<User> GetAll()
+   
+     
+        public User Update(User user)
         {
-            return _context.users.ToList();
-        }
-        public User? GetById(int id)
-        {
-            return _context.users.FirstOrDefault(x => x.Id == id);
-        }
-        public User Add(User user)
-        {
-            _context.users.Add(user);
-            return user;
-        }
-        public User Update(User admin)
-        {
-            var existingUser = GetById(admin.Id);
+            var existingUser = GetById(user.Id);
             if(existingUser is null)
             {
                 throw new Exception("User not found");
             }
-            existingUser.Name = admin.Name;
-            existingUser.Email= admin.Email;
+            existingUser.Name = user.Name;
+            existingUser.Email= user.Email;
+            existingUser.Password = user.Password;
+            existingUser.Role = user.Role;
             return existingUser;
         }
         public void Delete(int id)
@@ -46,6 +41,10 @@ namespace VidShare.Data.Repositories
             { 
                 _context.users.Remove(existingUser);
             }
+        }
+        public User? GetByLogin(int id,string password)
+        {
+            return _dbSet.Find(id,password);
         }
     }
 }
