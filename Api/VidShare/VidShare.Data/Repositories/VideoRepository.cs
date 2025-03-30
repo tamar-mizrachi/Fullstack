@@ -19,7 +19,7 @@ namespace VidShare.Data.Repositories
             _dbSet = _context.Set<Video>(); 
         }   
       
-        public Video Update(Video video) { 
+        public new Video Update(Video video) { 
              var existingVideo = GetById(video.Id);
             if (existingVideo is null)
             {

@@ -21,7 +21,7 @@ namespace VidShare.Data.Repositories
         }
        
     
-        public Business_detailes Update(Business_detailes bd)
+        public new Business_detailes Update(Business_detailes bd)
         {
             var existingBusiness_detailes = GetById(bd.Id);
             if (existingBusiness_detailes is null)

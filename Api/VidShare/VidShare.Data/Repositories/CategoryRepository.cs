@@ -22,7 +22,7 @@ namespace VidShare.Data.Repositories
       
      
       
-        public Category Update(Category category)
+        public new Category Update(Category category)
         {
             var existingUser = GetById(category.Id);
             if (existingUser is null)

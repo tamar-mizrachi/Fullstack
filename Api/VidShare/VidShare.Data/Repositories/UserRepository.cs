@@ -21,7 +21,7 @@ namespace VidShare.Data.Repositories
         }
    
      
-        public User Update(User user)
+        public new User Update(User user)
         {
             var existingUser = GetById(user.Id);
             if(existingUser is null)
