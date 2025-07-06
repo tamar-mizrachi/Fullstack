@@ -1,0 +1,12 @@
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Core\bin\Debug\net7.0\VidShare.Core.deps.json
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Core\bin\Debug\net7.0\VidShare.Core.dll
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Core\bin\Debug\net7.0\VidShare.Core.pdb
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Core\obj\Debug\net7.0\VidShare.Core.csproj.AssemblyReference.cache
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Core\obj\Debug\net7.0\VidShare.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Core\obj\Debug\net7.0\VidShare.Core.AssemblyInfoInputs.cache
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Core\obj\Debug\net7.0\VidShare.Core.AssemblyInfo.cs
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Core\obj\Debug\net7.0\VidShare.Core.csproj.CoreCompileInputs.cache
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Core\obj\Debug\net7.0\VidShare.Core.dll
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Core\obj\Debug\net7.0\refint\VidShare.Core.dll
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Core\obj\Debug\net7.0\VidShare.Core.pdb
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Core\obj\Debug\net7.0\ref\VidShare.Core.dll
