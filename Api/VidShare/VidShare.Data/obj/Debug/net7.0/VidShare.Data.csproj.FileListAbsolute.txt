@@ -1,0 +1,17 @@
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\bin\Debug\net7.0\VidShare.Data.deps.json
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\bin\Debug\net7.0\VidShare.Data.dll
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\bin\Debug\net7.0\VidShare.Data.pdb
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\bin\Debug\net7.0\VidShare.Core.dll
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\bin\Debug\net7.0\VidShare.Core.pdb
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\obj\Debug\net7.0\VidShare.Data.csproj.AssemblyReference.cache
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\obj\Debug\net7.0\VidShare.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\obj\Debug\net7.0\VidShare.Data.AssemblyInfoInputs.cache
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\obj\Debug\net7.0\VidShare.Data.AssemblyInfo.cs
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\obj\Debug\net7.0\VidShare.Data.csproj.CoreCompileInputs.cache
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\obj\Debug\net7.0\VidShare.Data.csproj.CopyComplete
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\obj\Debug\net7.0\VidShare.Data.dll
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\obj\Debug\net7.0\refint\VidShare.Data.dll
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\obj\Debug\net7.0\VidShare.Data.pdb
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\obj\Debug\net7.0\ref\VidShare.Data.dll
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\bin\Debug\net7.0\VidShare.Data.runtimeconfig.json
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Data\obj\Debug\net7.0\VidShare.Data.genruntimeconfig.cache

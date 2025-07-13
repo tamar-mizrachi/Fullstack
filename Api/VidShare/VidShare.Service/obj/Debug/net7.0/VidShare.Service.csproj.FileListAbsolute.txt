@@ -1,0 +1,15 @@
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Service\bin\Debug\net7.0\VidShare.Service.deps.json
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Service\bin\Debug\net7.0\VidShare.Service.dll
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Service\bin\Debug\net7.0\VidShare.Service.pdb
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Service\bin\Debug\net7.0\VidShare.Core.dll
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Service\bin\Debug\net7.0\VidShare.Core.pdb
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Service\obj\Debug\net7.0\VidShare.Service.csproj.AssemblyReference.cache
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Service\obj\Debug\net7.0\VidShare.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Service\obj\Debug\net7.0\VidShare.Service.AssemblyInfoInputs.cache
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Service\obj\Debug\net7.0\VidShare.Service.AssemblyInfo.cs
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Service\obj\Debug\net7.0\VidShare.Service.csproj.CoreCompileInputs.cache
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Service\obj\Debug\net7.0\VidShare.Service.csproj.CopyComplete
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Service\obj\Debug\net7.0\VidShare.Service.dll
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Service\obj\Debug\net7.0\refint\VidShare.Service.dll
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Service\obj\Debug\net7.0\VidShare.Service.pdb
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.Service\obj\Debug\net7.0\ref\VidShare.Service.dll
