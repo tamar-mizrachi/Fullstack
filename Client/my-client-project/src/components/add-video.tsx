@@ -508,7 +508,8 @@ const AddVideo: React.FC = () => {
       })
 
       const presignedUrl = presignRes.data.url
-      const fileUrl = `https://s3.eu-north-1.amazonaws.com/vidshare.aws-testpnoren/${presignRes.data.key}`
+      //const fileUrl = `https://s3.eu-north-1.amazonaws.com/vidshare.aws-testpnoren/${presignRes.data.key}`
+      const fileUrl = `https://${"vidshare.aws-testpnoren"}.s3.eu-north-1.amazonaws.com/${presignRes.data.key}`;
 
       if (!presignedUrl) {
         alert("כתובת העלאה ל-S3 לא התקבלה")
@@ -623,7 +624,7 @@ const AddVideo: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="createdDate" className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4" />
+                    <Calendar className="h-4 w-4"/>
                     תאריך יצירה
                   </Label>
                   <Input
@@ -640,7 +641,7 @@ const AddVideo: React.FC = () => {
                     <Tag className="h-4 w-4" />
                     קטגוריה
                   </Label>
-                  <div className="flex gap-2">
+                  <div className=" flex gap-2">
                     <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                       <SelectTrigger className={!selectedCategory ? "border-red-500" : ""}>
                         <SelectValue placeholder="בחר קטגוריה..." />
@@ -655,9 +656,9 @@ const AddVideo: React.FC = () => {
                     </Select>
 
                     <Dialog open={categoryDialogOpen} onOpenChange={setCategoryDialogOpen}>
-                      <DialogTrigger  asChild className="text-black">
-                        <Button type="button" variant="outline" size="icon" className=" shrink-0 bg-transparent">
-                          <Plus className=" h-4 w-4" />
+                      <DialogTrigger asChild>
+                        <Button type="button" variant="outline" size="icon" className="shrink-0 bg-transparent">
+                          <Plus className="h-4 w-4"/>+
                         </Button>
                       </DialogTrigger>
                       <DialogContent className="sm:max-w-[425px]">
@@ -669,7 +670,7 @@ const AddVideo: React.FC = () => {
                           <DialogDescription>הוסף קטגוריה חדשה לרשימת הקטגוריות</DialogDescription>
                         </DialogHeader>
 
-                        <form onSubmit={handleSubmitCategory(onSubmitCategory)} className=" space-y-4">
+                        <form onSubmit={handleSubmitCategory(onSubmitCategory)} className="space-y-4">
                           <div className="space-y-2">
                             <Label htmlFor="categoryName">שם הקטגוריה</Label>
                             <Input
