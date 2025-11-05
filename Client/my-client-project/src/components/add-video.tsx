@@ -415,7 +415,7 @@ const AddVideo: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("https://localhost:7087/api/Category")
+      .get(`${process.env.REACT_APP_API_URL}/Category`)
       .then((res) => setCategories(res.data))
       .catch((err) => console.error("שגיאה בטעינת קטגוריות:", err))
   }, [])
@@ -447,7 +447,7 @@ const AddVideo: React.FC = () => {
     setCategorySuccessMessage("")
 
     try {
-      const response = await axios.post("https://localhost:7087/api/Category", {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}Category`, {
         name: data.name,
       })
 
@@ -528,7 +528,7 @@ const AddVideo: React.FC = () => {
         categoryId: Number.parseInt(selectedCategory),
       }
 
-      const response = await axios.post("https://localhost:7087/api/Video", videoData)
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/Video`, videoData)
 
       const storedVideos = localStorage.getItem("myVideos")
       let videos: VideoFormData[] = storedVideos ? JSON.parse(storedVideos) : []

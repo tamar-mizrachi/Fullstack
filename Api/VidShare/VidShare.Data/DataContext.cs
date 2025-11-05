@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿/*using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,4 +30,36 @@ namespace VidShare.Data
     }
 
 
+}
+*/
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using VidShare.Core.Models;
+
+namespace VidShare.Data
+{
+    public class DataContext : DbContext
+    {
+        private readonly IConfiguration _configuration;
+
+        public DataContext(DbContextOptions<DataContext> options, IConfiguration configuration) : base(options)
+        {
+            _configuration = configuration;
+        }
+
+        public DbSet<Business_detailes> businessDetailes { get; set; }
+        public DbSet<Video> videos { get; set; }
+        public DbSet<User> users { get; set; }
+        public DbSet<Category> categorys { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var connectionString = _configuration.GetConnectionString("DefaultConnection");
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
+    }
 }

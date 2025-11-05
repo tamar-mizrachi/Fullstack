@@ -53,8 +53,8 @@ const MyVideos: React.FC = () => {
 
         // טען סרטונים וקטגוריות במקביל
         const [videosRes, categoriesRes] = await Promise.all([
-          axios.get(`https://localhost:7087/api/Video/user/${userId}`),
-          axios.get("https://localhost:7087/api/Category"),
+          axios.get(`${process.env.REACT_APP_API_URL}/Video/user/${userId}`),
+          axios.get(`${process.env.REACT_APP_API_URL}/Category`),
         ])
 
         setVideos(videosRes.data)

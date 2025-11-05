@@ -28,7 +28,6 @@ interface EditVideoProps {
   onClose: () => void
 }
 
-const API_BASE = "https://localhost:7087"
 
 const EditVideo: React.FC<EditVideoProps> = ({ video, onClose }) => {
   const [title, setTitle] = useState(video.title)
@@ -46,7 +45,7 @@ const EditVideo: React.FC<EditVideoProps> = ({ video, onClose }) => {
     const token = localStorage.getItem("authToken")
     try {
       await axios.put(
-        `${API_BASE}/api/Video/${video.id}`,
+        `${process.env.REACT_APP_API_URL}Video/${video.id}`,
         { title, description, createdDate, nameTalk },
         {
           headers: {

@@ -46,8 +46,8 @@ const Search: React.FC = () => {
     const fetchData = async () => {
       try {
         const [videosRes, categoriesRes] = await Promise.all([
-          axios.get("https://localhost:7087/api/Video"),
-          axios.get("https://localhost:7087/api/Category"),
+          axios.get(`${process.env.REACT_APP_API_URL}/Video`),
+          axios.get(`${process.env.REACT_APP_API_URL}/Category`),
         ])
 
         setVideos(videosRes.data)

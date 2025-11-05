@@ -25,7 +25,7 @@ const DeleteVideo: React.FC = () => {
 
     setLoading(true)
     try {
-      await axios.delete(`https://localhost:7087/api/Video/${videoId}`)
+      await axios.delete(`${process.env.REACT_APP_API_URL}/Video/${videoId}`)
 
       // Show success message briefly before redirecting
       setShowConfirm(false)

@@ -15,6 +15,7 @@ using Amazon.S3;
 using Amazon.Extensions.NETCore.Setup;
 using Amazon;
 using Amazon.Runtime;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -78,7 +79,10 @@ builder.Services.AddSingleton<IAmazonS3>(sp =>
     return new AmazonS3Client(credentials, region);
 });
 
-builder.Services.AddDbContext<DataContext>();
+//builder.Services.AddDbContext<DataContext>();
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 //builder.Services.AddSingleton<DataContext>();//לחבר את זה לדטה ביס
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 

@@ -1,4 +1,4 @@
-/*"use client"
+"use client"
 
 import { useState } from "react"
 import { Textarea } from "@/components/ui/textarea"
@@ -7,41 +7,41 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { AlertTriangle } from "lucide-react"
 
-interface SummarizeAIProps {
-  initialText: string
-}
-
-const SummarizeAI: React.FC<SummarizeAIProps> = ({ initialText }) => {
+const SummarizeAI = ({ initialText = "" }) => {
   const [inputText, setInputText] = useState(initialText)
   const [summary, setSummary] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
 
   const sendToAI = async () => {
+    if (!inputText.trim()) {
+      setError("⚠️ אין טקסט לתרגום — כנראה שלא דיברו בסרטון.")
+      return
+    }
+
     setLoading(true)
-    setSummary("")
     setError("")
+    setSummary("")
+
     try {
-      const res = await fetch("https://localhost:7087/api/Analyze/summarize", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/Analyze/summarize`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(inputText)
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: inputText }) // ← שליחה נכונה
       })
 
       const data = await res.json()
 
       if (data?.summary) {
         setSummary(data.summary)
-      } else if (data?.error) {
-        setError("⚠️ לא זוהה דיבור בסרטון – ייתכן שמדובר רק במוזיקה.")
+      } else if (data?.noSpeech === true) {
+        setError("🎵 לא זוהו מילים — כנראה שיש רק מוזיקה בסרטון.")
       } else {
-        setError("⚠️ לא התקבלה תוצאה מה-AI – ייתכן שלא היה טקסט לשם סיכום.")
+        setError("⚠️ לא התקבלה תוצאה מה-AI.")
       }
     } catch (err) {
       console.error("AI error:", err)
-      setError("❌ שגיאה בעת שליחת הטקסט ל-AI.")
+      setError("❌ שגיאה בחיבור לשרת ה-AI.")
     } finally {
       setLoading(false)
     }
@@ -57,11 +57,11 @@ const SummarizeAI: React.FC<SummarizeAIProps> = ({ initialText }) => {
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           rows={4}
-          className="w-full"
           placeholder="הכנס טקסט לתמלול או סיכום..."
         />
-        <Button onClick={sendToAI} disabled={loading} className="text-black">
-          {loading ? "שולח..." : "סכם עם AI"}
+
+        <Button onClick={sendToAI} disabled={loading}>
+          {loading ? "מעבד..." : "סכם עם AI"}
         </Button>
 
         {summary && (
@@ -82,4 +82,3 @@ const SummarizeAI: React.FC<SummarizeAIProps> = ({ initialText }) => {
 }
 
 export default SummarizeAI
-*/
