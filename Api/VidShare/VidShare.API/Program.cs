@@ -78,7 +78,7 @@ var awsSection = configuration.GetSection("AWS");
 
 var accessKey = awsSection["AccessKey"] ?? Environment.GetEnvironmentVariable("AWS__AccessKey");
 var secretKey = awsSection["SecretKey"] ?? Environment.GetEnvironmentVariable("AWS__SecretKey");
-var regionName = awsSection["Region"] ?? Environment.GetEnvironmentVariable("AWS__Region") ?? "eu-west-1";
+var regionName = awsSection["Region"] ?? Environment.GetEnvironmentVariable("AWS__Region") ?? "eu-north-1";
 
 var credentials = new BasicAWSCredentials(accessKey, secretKey);
 var region = RegionEndpoint.GetBySystemName(regionName);
@@ -142,11 +142,12 @@ builder.Services.AddScoped<OpenAIService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
-//}
+}
+
 app.UseCors("MyPolicy");
 
 app.UseHttpsRedirection();
