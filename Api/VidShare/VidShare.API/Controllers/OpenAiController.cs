@@ -26,7 +26,7 @@ namespace VidShare.API.Controllers
     }
 }
 */
-
+/*
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using System.Text;
@@ -112,5 +112,107 @@ namespace YourNamespace.Controllers
     public class TranscribeRequest
     {
         public string VideoUrl { get; set; }
+    }
+}
+*/
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
+
+namespace VidShare.API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AnalyzeController : ControllerBase
+    {
+        private readonly HttpClient _httpClient;
+        private readonly string _openAIApiKey;
+
+        public AnalyzeController(IHttpClientFactory httpClientFactory, IConfiguration config)
+        {
+            _httpClient = httpClientFactory.CreateClient();
+            _openAIApiKey = config["OpenAI:ApiKey"];
+        }
+
+        // ✅ 1) תמלול וניתוח האם יש מילים
+        [HttpPost("transcribe")]
+        public async Task<IActionResult> Transcribe([FromBody] TranscribeRequest request)
+        {
+            if (string.IsNullOrEmpty(request.VideoUrl))
+                return BadRequest(new { error = "VideoUrl is required" });
+
+            var apiUrl = "https://api.openai.com/v1/audio/transcriptions";
+
+            using var form = new MultipartFormDataContent();
+            form.Add(new StringContent(request.VideoUrl), "file");
+            form.Add(new StringContent("whisper-1"), "model");
+
+            _httpClient.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", _openAIApiKey);
+
+            var response = await _httpClient.PostAsync(apiUrl, form);
+            var json = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+                return StatusCode((int)response.StatusCode, json);
+
+            using var doc = JsonDocument.Parse(json);
+            string transcript = doc.RootElement.GetProperty("text").GetString();
+
+            if (string.IsNullOrWhiteSpace(transcript))
+                return Ok(new { transcript = "", noSpeech = true });
+
+            return Ok(new { transcript, noSpeech = false });
+        }
+
+        // ✅ 2) סיכום הטקסט
+        [HttpPost("summarize")]
+        public async Task<IActionResult> Summarize([FromBody] SummarizeRequest request)
+        {
+            if (string.IsNullOrWhiteSpace(request.Text))
+                return BadRequest(new { error = "Text is empty" });
+
+            var apiUrl = "https://api.openai.com/v1/chat/completions";
+
+            var requestData = new
+            {
+                model = "gpt-4o-mini",
+                messages = new[]
+                {
+                    new { role = "system", content = "Summarize text briefly and clearly." },
+                    new { role = "user", content = request.Text }
+                }
+            };
+
+            _httpClient.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", _openAIApiKey);
+
+            var jsonContent = new StringContent(JsonSerializer.Serialize(requestData), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync(apiUrl, jsonContent);
+
+            var responseJson = await response.Content.ReadAsStringAsync();
+
+            using var doc = JsonDocument.Parse(responseJson);
+            string summary = doc.RootElement
+                .GetProperty("choices")[0]
+                .GetProperty("message")
+                .GetProperty("content")
+                .GetString();
+
+            return Ok(new { summary });
+        }
+    }
+
+    public class TranscribeRequest
+    {
+        public string VideoUrl { get; set; }
+    }
+
+    public class SummarizeRequest
+    {
+        public string Text { get; set; }
     }
 }

@@ -66,13 +66,28 @@ builder.Services.AddScoped<AuthService>();
 
 //builder.Services.AddDefaultAWSOptions(configuration.GetAWSOptions());
 //builder.Services.AddAWSService<IAmazonS3>();
-var awsSection = configuration.GetSection("AWS");
+/*var awsSection = configuration.GetSection("AWS");
 var credentials = new BasicAWSCredentials(
     awsSection["AccessKey"],
     awsSection["SecretKey"]
 );
 
 var region = RegionEndpoint.GetBySystemName(awsSection["Region"]);
+*/
+var awsSection = configuration.GetSection("AWS");
+
+var accessKey = awsSection["AccessKey"] ?? Environment.GetEnvironmentVariable("AWS__AccessKey");
+var secretKey = awsSection["SecretKey"] ?? Environment.GetEnvironmentVariable("AWS__SecretKey");
+var regionName = awsSection["Region"] ?? Environment.GetEnvironmentVariable("AWS__Region") ?? "eu-west-1";
+
+var credentials = new BasicAWSCredentials(accessKey, secretKey);
+var region = RegionEndpoint.GetBySystemName(regionName);
+
+builder.Services.AddSingleton<IAmazonS3>(sp =>
+{
+    return new AmazonS3Client(credentials, region);
+});
+
 
 builder.Services.AddSingleton<IAmazonS3>(sp =>
 {
