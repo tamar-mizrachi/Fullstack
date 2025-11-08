@@ -21,7 +21,7 @@ const FileUploader = () => {
     if (!file) return;
 
     try {
-      const response = await axios.post('https://localhost:7087/api/upload/presigned-url', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}api/upload/presigned-url`, {
         fileName: file.name,
         fileType: file.type
       });
