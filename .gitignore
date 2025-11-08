@@ -25,3 +25,9 @@ dist-ssr
 "Api/VidShare/VidShare.API/appsettings.Development.json" 
 "Api/VidShare/VidShare.API/bin/" 
 "Api/VidShare/VidShare.API/obj/" 
+*.ntvs*
+*.sw?
+*.json
+*/Properties/launchSettings.json
+*.env
+.env.*
