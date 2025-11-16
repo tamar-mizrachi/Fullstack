@@ -45,17 +45,19 @@
       "sslPort": 44301
     }
   },
-  "ConnectionStrings": {
-    "DefaultConnection": ""
+  {
+    "ConnectionStrings": {
+      "DefaultConnection": ""
+    }
   },
   {
     "OpenAI": {
       "ApiKey": ""
     }
   },
-  "AWS": {
-    "Region": "eu-north-1"
+  {
+    "AWS": {
+      "Region": "eu-north-1"
+    }
   }
-
-
 }
