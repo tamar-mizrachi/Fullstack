@@ -83,7 +83,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ video, categoryName = "כלל
     setTranscribing(true)
     setTranscript("")
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/analyze/transcribe`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/analyze/transcribe`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

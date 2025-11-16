@@ -35,7 +35,7 @@ const navigate = useNavigate()
     if (Object.values(newErrors).includes(true)) return
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/Auth/register`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/Auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

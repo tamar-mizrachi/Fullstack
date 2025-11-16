@@ -502,7 +502,7 @@ const AddVideo: React.FC = () => {
         setUploadProgress((prev) => Math.min(prev + 10, 90))
       }, 200)
 
-      const presignRes = await axios.post("https://localhost:7087/api/upload/presigned-url", {
+      const presignRes = await axios.post(`${process.env.REACT_APP_API_URL}/api/upload/presigned-url`, {
         fileName: uniqueFileName,
         fileType: videoFile.type,
       })
