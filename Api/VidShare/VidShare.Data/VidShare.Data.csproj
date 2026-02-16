@@ -19,4 +19,8 @@
     <ProjectReference Include="..\VidShare.Core\VidShare.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

@@ -15,7 +15,9 @@ using Amazon.S3;
 using Amazon;
 using Amazon.Runtime;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Hosting.Server;
+using System.Runtime.InteropServices;
+using Microsoft.EntityFrameworkCore;
 // ❌ הוסר: using Xabe.FFmpeg.Downloader;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -93,8 +95,11 @@ else
 }
 
 // ✅ Database
+//builder.Services.AddDbContext<DataContext>(options =>
+//options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 // ✅ AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -181,6 +186,6 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapGet("/", () => "VidShare API is running ✅");
 
-Console.WriteLine("🚀 Server started on http://localhost:5116");
+//Console.WriteLine("🚀 Server started on http://localhost:5116");
 
 app.Run();

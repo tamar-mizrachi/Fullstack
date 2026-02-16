@@ -50,7 +50,7 @@
       "DefaultConnection": ""
     },*/
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Database=VidShareDb;Trusted_Connection=True;Encrypt=False;"
+    "DefaultConnection": "Server=bnedo1lgldhexcl6pf5e-mysql.services.clever-cloud.com;Port=3306;Database=bnedo1lgldhexcl6pf5e;User=uld6hmlrapuig6vr;Password=hTew54IiYY7GZkrWwCii;"
   },
 
   "OpenAI": {
