@@ -35,7 +35,7 @@ const navigate = useNavigate()
     if (Object.values(newErrors).includes(true)) return
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/Auth/register`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/Auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -45,13 +45,24 @@ const navigate = useNavigate()
           role: role
         }),
       })
-
+/*
       const data = await res.json()
       console.log('Response:', data)
 
       if (!res.ok) {
         throw new Error(data.message || 'Registration failed')
       }
+*/
+let data: any;
+
+if (!res.ok) {
+  const errorText = await res.text();
+  throw new Error(errorText || 'Registration failed');
+}
+
+data = await res.json();
+console.log('Response:', data);
+
 
       if (data.role == 'Admin') {
         console.log('Navigating to admin-home')

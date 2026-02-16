@@ -1,4 +1,5 @@
-/*using Microsoft.AspNetCore.Authentication.JwtBearer;
+Ôªø
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -10,21 +11,25 @@ using VidShare.Core.Services;
 using VidShare.Data;
 using VidShare.Data.Repositories;
 using VidShare.Service;
-using Microsoft.Extensions.Configuration;
 using Amazon.S3;
-using Amazon.Extensions.NETCore.Setup;
 using Amazon;
 using Amazon.Runtime;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
-var configuration = builder.Configuration;
-// Add services to the container.
+// ‚ùå ◊î◊ï◊°◊®: using Xabe.FFmpeg.Downloader;
 
+var builder = WebApplication.CreateBuilder(args);
+
+// ‚ùå ◊î◊ï◊°◊®: ◊î◊ï◊®◊ì◊™ FFmpeg ◊ë◊î◊§◊¢◊ú◊î
+// Console.WriteLine("üì• Downloading FFmpeg...");
+// await FFmpegDownloader.GetLatestVersion(FFmpegVersion.Official);
+// Console.WriteLine("‚úÖ FFmpeg ready!");
+
+// ‚úÖ Controllers
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// ‚úÖ Swagger
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -51,9 +56,10 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
-builder.Services.AddScoped<IUserService,UserService>();
+
+// ‚úÖ Services
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-//builder.Services.AddScoped<IBusinessDetailesService, BusinessDetailesService>();
 builder.Services.AddScoped<IVideoService, VideoService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
@@ -64,163 +70,60 @@ builder.Services.AddScoped<IRepository<Business_detailes>, Repository<Business_d
 builder.Services.AddScoped<IRepository<Category>, Repository<Category>>();
 builder.Services.AddScoped<AuthService>();
 
-//builder.Services.AddDefaultAWSOptions(configuration.GetAWSOptions());
-//builder.Services.AddAWSService<IAmazonS3>();
-//var awsSection = configuration.GetSection("AWS");
-//var credentials = new BasicAWSCredentials(
-//    awsSection["AccessKey"],
- //   awsSection["SecretKey"]
-//);
-//
-//var region = RegionEndpoint.GetBySystemName(awsSection["Region"]);
+// ‚úÖ AWS S3
+var awsSection = builder.Configuration.GetSection("AWS");
+var accessKey = awsSection["AccessKey"];
+var secretKey = awsSection["SecretKey"];
+var regionName = awsSection["Region"] ?? "eu-north-1";
 
-var awsSection = configuration.GetSection("AWS");
-
-var accessKey = awsSection["AccessKey"] ?? Environment.GetEnvironmentVariable("AWS__AccessKey");
-var secretKey = awsSection["SecretKey"] ?? Environment.GetEnvironmentVariable("AWS__SecretKey");
-var regionName = awsSection["Region"] ?? Environment.GetEnvironmentVariable("AWS__Region") ?? "eu-north-1";
-
-var credentials = new BasicAWSCredentials(accessKey, secretKey);
-var region = RegionEndpoint.GetBySystemName(regionName);
-
-
-builder.Services.AddSingleton<IAmazonS3>(sp =>
+if (!string.IsNullOrEmpty(accessKey) && !string.IsNullOrEmpty(secretKey))
 {
-    return new AmazonS3Client(credentials, region);
-});
+    var credentials = new BasicAWSCredentials(accessKey, secretKey);
+    var region = RegionEndpoint.GetBySystemName(regionName);
 
-//builder.Services.AddDbContext<DataContext>();
+    builder.Services.AddSingleton<IAmazonS3>(sp =>
+        new AmazonS3Client(credentials, region)
+    );
+
+    Console.WriteLine($"‚úÖ AWS S3 configured: {regionName}");
+}
+else
+{
+    Console.WriteLine("‚ö†Ô∏è AWS credentials not found");
+}
+
+// ‚úÖ Database
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-//builder.Services.AddSingleton<DataContext>();//ÏÁ·¯ ‡˙ Ê‰ Ï„Ë‰ ·ÈÒ
+// ‚úÖ AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-    options.JsonSerializerOptions.WriteIndented = true;
-});
-builder.Services.AddCors(opt => opt.AddPolicy("MyPolicy", policy =>
-{
-    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
-}));
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-    .AddJwtBearer(options =>
-    {
-        //options.RequireHttpsMetadata = false;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-        };
-    });
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
-    options.AddPolicy("EditorOrAdmin", policy => policy.RequireRole("Editor", "Admin"));
-    options.AddPolicy("ViewerOnly", policy => policy.RequireRole("Viewer"));
-});
-builder.Services.Configure<OpenAi>(builder.Configuration.GetSection("OpenAI"));
-builder.Services.AddHttpClient(); // ÁÂ·‰ ‡Ì ÚÂ„ Ï‡ ˜ÈÈÌ
-builder.Services.AddScoped<OpenAIService>();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseCors("MyPolicy");
-
-app.UseHttpsRedirection();
-app.UseAuthentication();
-app.UseAuthorization();
-
-
-app.MapControllers();
-app.MapGet("/", () => "AuthServer API is running");
-app.Run();
-*/
-
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using System.Text;
-using System.Text.Json.Serialization;
-using VidShare.Core;
-using VidShare.Core.Models;
-using VidShare.Core.Repositories;
-using VidShare.Core.Services;
-using VidShare.Data;
-using VidShare.Data.Repositories;
-using VidShare.Service;
-using Microsoft.EntityFrameworkCore;
-using Amazon.S3;
-using Amazon.Runtime;
-using Amazon;
-
-var builder = WebApplication.CreateBuilder(args);
-var configuration = builder.Configuration;
-
-// ------------------------- Services -------------------------
-
+// ‚úÖ JSON Options
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     options.JsonSerializerOptions.WriteIndented = true;
 });
 
-// CORS - ¯˜ ÏŒfrontend ˘ÏÍ
-builder.Services.AddCors(opt => opt.AddPolicy("MyPolicy", policy =>
+// ‚úÖ CORS
+builder.Services.AddCors(options =>
 {
-    policy.WithOrigins("https://vidshareclient.onrender.com")
-          .AllowAnyHeader()
-          .AllowAnyMethod();
-}));
-
-// Swagger
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    options.AddPolicy("MyPolicy", policy =>
     {
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        Description = "Bearer Authentication with JWT Token"
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference { Id = "Bearer", Type = ReferenceType.SecurityScheme }
-            },
-            new List<string>()
-        }
+        policy.WithOrigins(
+            "http://localhost:5173",
+            "http://localhost:3000",
+            "http://localhost:5174",
+            "http://localhost:5116"
+        )
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
     });
 });
 
-// JWT Authentication
-var jwtKey = Environment.GetEnvironmentVariable("JWT__KEY") ?? configuration["Jwt:Key"];
-var jwtIssuer = Environment.GetEnvironmentVariable("JWT__ISSUER") ?? configuration["Jwt:Issuer"];
-var jwtAudience = Environment.GetEnvironmentVariable("JWT__AUDIENCE") ?? configuration["Jwt:Audience"];
-
+// ‚úÖ JWT Authentication
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -228,22 +131,20 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-    if (string.IsNullOrEmpty(jwtKey))
-        throw new Exception("JWT Key not set in environment variables.");
-
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtIssuer,
-        ValidAudience = jwtAudience,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]??"")
+        )
     };
 });
 
-// Authorization policies
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
@@ -251,54 +152,34 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ViewerOnly", policy => policy.RequireRole("Viewer"));
 });
 
-// OpenAI
-builder.Services.Configure<OpenAi>(options =>
+// ‚úÖ HTTP Client ◊¢◊ù timeout ◊û◊ï◊í◊ì◊ú
+builder.Services.AddHttpClient("TranscriptionClient", client =>
 {
-    options.ApiKey = Environment.GetEnvironmentVariable("OpenAI__ApiKey");
+    client.Timeout = TimeSpan.FromMinutes(10);
 });
+
+// ‚úÖ OpenAI
+builder.Services.Configure<OpenAi>(builder.Configuration.GetSection("OpenAI"));
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<OpenAIService>();
 
-// AWS S3
-var awsAccessKey = Environment.GetEnvironmentVariable("AWS__AccessKey");
-var awsSecretKey = Environment.GetEnvironmentVariable("AWS__SecretKey");
-var awsRegion = Environment.GetEnvironmentVariable("AWS__Region") ?? "eu-north-1";
-
-var awsCredentials = new BasicAWSCredentials(awsAccessKey, awsSecretKey);
-var regionEndpoint = RegionEndpoint.GetBySystemName(awsRegion);
-builder.Services.AddSingleton<IAmazonS3>(sp => new AmazonS3Client(awsCredentials, regionEndpoint));
-
-// Database
-builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-// Dependency Injection
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IVideoService, VideoService>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<AuthService>();
-builder.Services.AddAutoMapper(typeof(MappingProfile));
-
-// ------------------------- Build App -------------------------
 var app = builder.Build();
 
-// Middleware
-app.UseCors("MyPolicy");
-app.UseHttpsRedirection();
-app.UseAuthentication();
-app.UseAuthorization();
-
+// ‚úÖ Pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// Map Controllers
+app.UseCors("MyPolicy");
+app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
-app.MapGet("/", () => "AuthServer API is running");
+app.MapGet("/", () => "VidShare API is running ‚úÖ");
+
+Console.WriteLine("üöÄ Server started on http://localhost:5116");
 
 app.Run();

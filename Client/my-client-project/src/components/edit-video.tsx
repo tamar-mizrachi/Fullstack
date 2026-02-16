@@ -45,7 +45,7 @@ const EditVideo: React.FC<EditVideoProps> = ({ video, onClose }) => {
     const token = localStorage.getItem("authToken")
     try {
       await axios.put(
-        `${process.env.REACT_APP_API_URL}/api/Video/${video.id}`,
+        `${import.meta.env.VITE_API_URL}/api/Video/${video.id}`,
         { title, description, createdDate, nameTalk },
         {
           headers: {

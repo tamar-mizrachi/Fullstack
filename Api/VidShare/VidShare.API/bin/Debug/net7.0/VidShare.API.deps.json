@@ -15,6 +15,7 @@
           "Microsoft.EntityFrameworkCore.Design": "7.0.20",
           "Microsoft.NETCore.Targets": "3.0.0",
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.18.1",
+          "OpenAI": "2.0.0",
           "Swashbuckle.AspNetCore": "6.5.0",
           "VidShare.Data": "1.0.0",
           "VidShare.Service": "1.0.0"
@@ -572,6 +573,18 @@
           }
         }
       },
+      "OpenAI/2.0.0": {
+        "dependencies": {
+          "System.ClientModel": "1.1.0",
+          "System.Diagnostics.DiagnosticSource": "10.0.0-preview.5.25277.114"
+        },
+        "runtime": {
+          "lib/net6.0/OpenAI.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.5.0": {
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "6.0.5",
@@ -611,6 +624,18 @@
         }
       },
       "System.Buffers/4.6.1": {},
+      "System.ClientModel/1.1.0": {
+        "dependencies": {
+          "System.Memory.Data": "1.0.2",
+          "System.Text.Json": "7.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/System.ClientModel.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.100.24.46703"
+          }
+        }
+      },
       "System.CodeDom/4.4.0": {
         "runtime": {
           "lib/netstandard2.0/System.CodeDom.dll": {
@@ -1170,6 +1195,13 @@
       "path": "mono.texttemplating/2.2.1",
       "hashPath": "mono.texttemplating.2.2.1.nupkg.sha512"
     },
+    "OpenAI/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WI9e5tC15ZBt02scCp2gcHrjxQRVX2Ws3eUu/YsICqellH3MwdRggGujSZg69oBJMtk1AYmqb9l08ix0l5AcqQ==",
+      "path": "openai/2.0.0",
+      "hashPath": "openai.2.0.0.nupkg.sha512"
+    },
     "Swashbuckle.AspNetCore/6.5.0": {
       "type": "package",
       "serviceable": true,
@@ -1204,6 +1236,13 @@
       "sha512": "sha512-N8GXpmiLMtljq7gwvyS+1QvKT/W2J8sNAvx+HVg4NGmsG/H+2k/y9QI23auLJRterrzCiDH+IWAw4V/GPwsMlw==",
       "path": "system.buffers/4.6.1",
       "hashPath": "system.buffers.4.6.1.nupkg.sha512"
+    },
+    "System.ClientModel/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UocOlCkxLZrG2CKMAAImPcldJTxeesHnHGHwhJ0pNlZEvEXcWKuQvVOER2/NiOkJGRJk978SNdw3j6/7O9H1lg==",
+      "path": "system.clientmodel/1.1.0",
+      "hashPath": "system.clientmodel.1.1.0.nupkg.sha512"
     },
     "System.CodeDom/4.4.0": {
       "type": "package",

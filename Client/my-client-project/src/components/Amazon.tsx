@@ -21,7 +21,7 @@ const FileUploader = () => {
     if (!file) return;
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}api/upload/presigned-url`, {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}api/upload/presigned-url`, {
         fileName: file.name,
         fileType: file.type
       });
@@ -31,7 +31,8 @@ const FileUploader = () => {
 
       await axios.put(presignedUrl, file, {
         headers: {
-          'Content-Type': file.type
+         // 'Content-Type': file.type
+         'Content-Type': "video/mp4" 
         },
         onUploadProgress: (progressEvent) => {
           const percent = Math.round((progressEvent.loaded * 100) / (progressEvent.total || 1));
@@ -40,9 +41,11 @@ const FileUploader = () => {
       });
 
       // כתובת קבועה של S3 לצפייה בסרטון
-      const publicUrl = `https://vidshare.aws-testpnoren.s3.amazonaws.com/${s3Key}`;
+   //   const publicUrl = `https://vidshare.aws-testpnoren.s3.amazonaws.com/${s3Key}`;
+      const publicUrl = `http://eu-north-1.console.aws.amazon.com/s3/object/vidshare.aws-testpnoren${s3Key}`;
       setVideoUrl(publicUrl);
       alert('הסרטון הועלה בהצלחה!');
+      
     } catch (error) {
       console.error("שגיאה בהעלאה:", error);
       alert("שגיאה בהעלאת הסרטון. רק MP4 נתמך.");

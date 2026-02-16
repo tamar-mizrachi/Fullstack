@@ -36,6 +36,7 @@
       "useSSL": true
     }
   },
+
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
@@ -45,18 +46,17 @@
       "sslPort": 44301
     }
   },
-  {
-    "ConnectionStrings": {
+  /*  "ConnectionStrings": {
       "DefaultConnection": ""
-    }
+    },*/
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=VidShareDb;Trusted_Connection=True;Encrypt=False;"
   },
-  {
-    "OpenAI": {
-      "ApiKey": ""
-    }
-  },
-  {
+
+  "OpenAI": {
+    "ApiKey": "",
     "AWS": {
+
       "Region": "eu-north-1"
     }
   }

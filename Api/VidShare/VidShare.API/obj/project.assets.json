@@ -861,6 +861,23 @@
           "lib/netstandard2.0/Mono.TextTemplating.dll": {}
         }
       },
+      "OpenAI/2.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.ClientModel": "1.1.0",
+          "System.Diagnostics.DiagnosticSource": "6.0.1"
+        },
+        "compile": {
+          "lib/net6.0/OpenAI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/OpenAI.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.5.0": {
         "type": "package",
         "dependencies": {
@@ -931,6 +948,23 @@
         },
         "runtime": {
           "lib/netcoreapp2.0/_._": {}
+        }
+      },
+      "System.ClientModel/1.1.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Memory.Data": "1.0.2",
+          "System.Text.Json": "6.0.9"
+        },
+        "compile": {
+          "lib/net6.0/System.ClientModel.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/System.ClientModel.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.CodeDom/4.4.0": {
@@ -2928,6 +2962,24 @@
         "mono.texttemplating.nuspec"
       ]
     },
+    "OpenAI/2.0.0": {
+      "sha512": "WI9e5tC15ZBt02scCp2gcHrjxQRVX2Ws3eUu/YsICqellH3MwdRggGujSZg69oBJMtk1AYmqb9l08ix0l5AcqQ==",
+      "type": "package",
+      "path": "openai/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "OpenAI.png",
+        "README.md",
+        "lib/net6.0/OpenAI.dll",
+        "lib/net6.0/OpenAI.xml",
+        "lib/netstandard2.0/OpenAI.dll",
+        "lib/netstandard2.0/OpenAI.xml",
+        "openai.2.0.0.nupkg.sha512",
+        "openai.nuspec"
+      ]
+    },
     "Swashbuckle.AspNetCore/6.5.0": {
       "sha512": "FK05XokgjgwlCI6wCT+D4/abtQkL1X1/B9Oas6uIwHFmYrIO9WUD5aLC9IzMs9GnHfUXOtXZ2S43gN1mhs5+aA==",
       "type": "package",
@@ -3037,6 +3089,24 @@
         "lib/netstandard2.1/_._",
         "system.buffers.4.6.1.nupkg.sha512",
         "system.buffers.nuspec"
+      ]
+    },
+    "System.ClientModel/1.1.0": {
+      "sha512": "UocOlCkxLZrG2CKMAAImPcldJTxeesHnHGHwhJ0pNlZEvEXcWKuQvVOER2/NiOkJGRJk978SNdw3j6/7O9H1lg==",
+      "type": "package",
+      "path": "system.clientmodel/1.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "DotNetPackageIcon.png",
+        "README.md",
+        "lib/net6.0/System.ClientModel.dll",
+        "lib/net6.0/System.ClientModel.xml",
+        "lib/netstandard2.0/System.ClientModel.dll",
+        "lib/netstandard2.0/System.ClientModel.xml",
+        "system.clientmodel.1.1.0.nupkg.sha512",
+        "system.clientmodel.nuspec"
       ]
     },
     "System.CodeDom/4.4.0": {
@@ -3933,6 +4003,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 7.0.20",
       "Microsoft.NETCore.Targets >= 3.0.0",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.18.1",
+      "OpenAI >= 2.0.0",
       "Swashbuckle.AspNetCore >= 6.5.0",
       "VidShare.Data >= 1.0.0",
       "VidShare.Service >= 1.0.0"
@@ -4015,6 +4086,10 @@
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
             "target": "Package",
             "version": "[1.18.1, )"
+          },
+          "OpenAI": {
+            "target": "Package",
+            "version": "[2.0.0, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

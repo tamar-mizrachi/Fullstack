@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "mbXEN5hG9uNa0SOcil7l+UZ4Ix72SYjz54mwhMQx92wDvHnMJ4IJFrlNR5J1mml+IhvERfIsFnC+a2eoZXu5Nw==",
+  "dgSpecHash": "VWUKq/rPLZdNhHIAQ0O9ESXpYtyyQvNz2rDcaaTq6WaxBD80YHEoYtz7BRivqxdEPe4iXiFJJtzMp30p/iaYEA==",
   "success": true,
   "projectFilePath": "C:\\Users\\user1\\Documents\\תכנות תמי\\Fullstack-Project\\Api\\VidShare\\VidShare.API\\VidShare.API.csproj",
   "expectedPackageFiles": [
@@ -53,11 +53,13 @@
     "C:\\Users\\user1\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.18.1\\microsoft.visualstudio.azure.containers.tools.targets.1.18.1.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\openai\\2.0.0\\openai.2.0.0.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\system.buffers\\4.6.1\\system.buffers.4.6.1.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\system.clientmodel\\1.1.0\\system.clientmodel.1.1.0.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",

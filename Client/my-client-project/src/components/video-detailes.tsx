@@ -40,7 +40,7 @@ const navigate = useNavigate()
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/Category`)
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/Category`)
         if (response.ok) {
           const data = await response.json()
           setCategories(data)

@@ -1,8 +1,5 @@
 
-
 "use client"
-
-//import SummarizeAI from "./Ai"
 
 import { useState, useRef, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -73,39 +70,55 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ video, categoryName = "כלל
   const [showAI, setShowAI] = useState(false)
   const [transcript, setTranscript] = useState("")
   const [transcribing, setTranscribing] = useState(false)
-  
+
+  // ✅ פונקציה מתוקנת - שולחת URL בלבד, השרת מוריד מ-S3
   const handleTranscriptionAI = async () => {
-    const videoElement = videoRef.current
-    if (videoElement && videoElement.paused) {
-      await videoElement.play() // מפעיל את הסרטון אם הוא לא מנגן
+    if (!video?.videoUrl) {
+      setTranscript("❌ אין URL לסרטון")
+      return
     }
-  
+
     setTranscribing(true)
-    setTranscript("")
+    setTranscript("⏳ מתמלל את הסרטון...")
+
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/analyze/transcribe`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ videoUrl: video.videoUrl })
-      })
-    
-      const data = await res.json()
-    
-      if (data.transcript) {
-        setTranscript(data.transcript)
-      } else if (data.message === "no_speech_detected") {
-        setTranscript("⚠️ לא זוהה דיבור בסרטון – ייתכן שמדובר רק במנגינה או שקט.")
-      } else {
-        setTranscript("⚠️ לא זוהה טקסט לתמלול – ייתכן שהפורמט לא נתמך.")
+      console.log("🎬 מתחיל תמלול:", video.videoUrl)
+
+      const transcribeResponse = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/Analyze/transcribe`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ videoUrl: video.videoUrl }),
+        }
+      )
+
+      console.log("📥 Response status:", transcribeResponse.status)
+
+      if (!transcribeResponse.ok) {
+        const errorText = await transcribeResponse.text()
+        console.error("❌ Server error:", errorText)
+        throw new Error(`Server error ${transcribeResponse.status}: ${errorText}`)
       }
-    } catch (err) {
-      console.error("שגיאה בתמלול:", err)
-      setTranscript("❌ שגיאה בשליחת הסרטון ל-AI לתמלול.")
+
+      const data = await transcribeResponse.json()
+      console.log("✅ תוצאה:", data)
+
+      if (data?.transcript) {
+        setTranscript(data.transcript)
+      } else if (data?.noSpeech) {
+        setTranscript("🎵 לא זוהו מילים בסרטון - ייתכן שיש רק מוזיקה או שקט")
+      } else {
+        setTranscript("⚠️ לא התקבלה תוצאה מה-AI")
+      }
+    } catch (error: any) {
+      console.error("❌ שגיאה בתמלול:", error)
+      setTranscript(`❌ שגיאה: ${error.message}`)
+    } finally {
+      setTranscribing(false)
     }
-  }    
-  
+  }
+
   const [comments, setComments] = useState<Comment[]>([
     {
       id: 1,
@@ -247,19 +260,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ video, categoryName = "כלל
   }
 
   const getVideoSources = () => {
-    // נסה מספר פורמטים ונתיבים אפשריים
     const baseUrl = video.videoUrl
     const sources = [
       { src: baseUrl, type: "video/mp4" },
-      //  { src: baseUrl.replace(/\.[^/.]+$/, ".webm"), type: "video/webm" },
-      //  { src: baseUrl.replace(/\.[^/.]+$/, ".ogg"), type: "video/ogg" },
     ]
-    // אם זה נתיב יחסי, נסה גם עם נתיבים מלאים
+
     if (!baseUrl.startsWith("http")) {
-      sources.push(
-        { src: `${baseUrl}`, type: "video/mp4" },
-        //  { src: `${window.location.origin}/public${baseUrl}`, type: "video/mp4" },
-      )
+      sources.push({ src: `${baseUrl}`, type: "video/mp4" })
     }
 
     return sources
@@ -303,7 +310,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ video, categoryName = "כלל
                       console.error("Video element error:", e)
                       setVideoError("הסרטון לא נמצא או שהפורמט לא נתמך")
                     }}
-                    // crossOrigin="anonymous"
                     preload="metadata"
                   >
                     {getVideoSources().map((source, index) => (
@@ -426,7 +432,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ video, categoryName = "כלל
                       </p>
                       <div className="mt-3">
                         <Button onClick={handleRetry} size="sm" variant="outline">
-                          <RefreshCw className=" h-4 w-4 mr-2" />
+                          <RefreshCw className="h-4 w-4 mr-2" />
                           נסה שוב
                         </Button>
                       </div>
@@ -477,23 +483,24 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ video, categoryName = "כלל
                 <h3 className="font-semibold mb-2">תיאור</h3>
                 <p className="text-slate-700 leading-relaxed">{video.description}</p>
               </div>
-              {/* <Button onClick={() => setShowAI(!showAI)} variant="outline" className="w-full mt-4">
-                {showAI ? "הסתר סיכום AI" : "סכם תוכן הסרטון עם AI"}
+
+              {/* ✅ כפתור תמלול */}
+              <Button
+                onClick={handleTranscriptionAI}
+                variant="outline"
+                className="w-full mt-4"
+                disabled={transcribing}
+              >
+                {transcribing ? "מתמלל..." : "תמלל את הסרטון עם AI"}
               </Button>
 
-              {showAI && (
-                <SummarizeAI initialText={video.description} />
-              )} */}
-              <Button onClick={handleTranscriptionAI} variant="outline" className="w-full mt-4">
-                תמלל את הסרטון עם AI
-              </Button>
-
+              {/* ✅ תצוגת תמלול */}
               {transcript && (
-                <div className="bg-gray-100 p-4 rounded text-sm mt-2 text-gray-800">
-                  <strong>תמלול:</strong> {transcript}
+                <div className="bg-purple-50 border border-purple-200 p-4 rounded-lg text-sm mt-2">
+                  <strong className="text-purple-900">תמלול AI:</strong>
+                  <p className="text-purple-800 mt-2 whitespace-pre-wrap">{transcript}</p>
                 </div>
               )}
-
             </CardContent>
           </Card>
         </div>
@@ -509,7 +516,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ video, categoryName = "כלל
 
             <CardContent className="space-y-4">
               <div className="space-y-3">
-
                 <Textarea
                   placeholder="כתוב תגובה..."
                   value={newComment}
@@ -576,5 +582,3 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ video, categoryName = "כלל
 }
 
 export default VideoPlayer
-
-
