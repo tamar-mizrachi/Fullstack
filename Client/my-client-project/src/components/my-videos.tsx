@@ -340,8 +340,8 @@ const MyVideos: React.FC = () => {
 
         // טען סרטונים וקטגוריות במקביל
         const [videosRes, categoriesRes] = await Promise.all([
-          axios.get(`http://localhost:5116/api/Video/user/${userId}`),
-          axios.get(`http://localhost:5116/api/Category`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/Video/user/${userId}`),
+          axios.get(`${import.meta.env.VITE_API_URL}/api/Category`),
         ])
 
         setVideos(videosRes.data)
@@ -368,7 +368,7 @@ const MyVideos: React.FC = () => {
 
     setDeletingId(videoId)
     try {
-      await axios.delete(`http://localhost:5116/api/Video/${videoId}`)
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/Video/${videoId}`)
       setVideos((prev) => prev.filter((video) => video.id !== videoId))
     } catch (error) {
       console.error("שגיאה במחיקת הסרטון:", error)
@@ -389,7 +389,7 @@ const MyVideos: React.FC = () => {
     if (userIdStr) {
       const userId = Number.parseInt(userIdStr)
       axios
-        .get(`http://localhost:5116/api/Video/user/${userId}`)
+        .get(`${import.meta.env.VITE_API_URL}/api/Video/user/${userId}`)
         .then((res) => {
           setVideos(res.data)
         })
