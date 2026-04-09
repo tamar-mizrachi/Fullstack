@@ -172,7 +172,7 @@ const AddVideo: React.FC = () => {
       )
   
       const presignedUrl = presignRes.data.url
-      const fileUrl = `http://vidshare.aws-testpnoren.s3.eu-north-1.amazonaws.com/${presignRes.data.key}`
+      const fileUrl = `http://vidshare-aws-testpnoren.s3.eu-north-1.amazonaws.com/${presignRes.data.key}`
       if (!presignedUrl) {
         alert("כתובת העלאה ל-S3 לא התקבלה")
         clearInterval(progressInterval)
