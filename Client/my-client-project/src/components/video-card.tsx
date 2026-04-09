@@ -264,7 +264,6 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, openModal, onWatchVideo })
     const baseUrl = video.videoUrl
     const sources = [
       { src: baseUrl, type: "video/mp4" },
-      //{ src: baseUrl.replace(/\.[^/.]+$/, ".webm"), type: "video/webm" },
     ]
     // אם זה נתיב יחסי, נסה גם עם נתיבים מלאים
     if (!baseUrl.startsWith("http")) {
@@ -303,20 +302,6 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, openModal, onWatchVideo })
             </div>
           ) : (
             <>
-              {/* <video
-                data-video-id={video.id}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                onError={handleVideoError}
-                onLoadedData={handleVideoSuccess}
-                poster="/placeholder.svg?height=200&width=300"
-                preload="metadata"
-                crossOrigin="anonymous"
-              >
-                {getVideoSources().map((source, index) => (
-                  <source key={index} src={source.src} type={source.type} />
-                ))}
-                הדפדפן שלך לא תומך בתג הווידאו
-              </video> */}
 <video
   ref={videoRef}
   data-video-id={video.id}

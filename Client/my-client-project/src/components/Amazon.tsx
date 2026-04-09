@@ -40,8 +40,6 @@ const FileUploader = () => {
         }
       });
 
-      // כתובת קבועה של S3 לצפייה בסרטון
-   //   const publicUrl = `https://vidshare.aws-testpnoren.s3.amazonaws.com/${s3Key}`;
       const publicUrl = `http://eu-north-1.console.aws.amazon.com/s3/object/vidshare-aws-testpnoren${s3Key}`;
       setVideoUrl(publicUrl);
       alert('הסרטון הועלה בהצלחה!');

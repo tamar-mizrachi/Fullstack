@@ -22,10 +22,6 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ❌ הוסר: הורדת FFmpeg בהפעלה
-// Console.WriteLine("📥 Downloading FFmpeg...");
-// await FFmpegDownloader.GetLatestVersion(FFmpegVersion.Official);
-// Console.WriteLine("✅ FFmpeg ready!");
 
 // ✅ Controllers
 builder.Services.AddControllers();
@@ -95,8 +91,6 @@ else
 }
 
 // ✅ Database
-//builder.Services.AddDbContext<DataContext>(options =>
-//options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
