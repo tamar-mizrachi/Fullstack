@@ -36,7 +36,7 @@ public class UploadController : ControllerBase
 
         var request = new GetPreSignedUrlRequest
         {
-            BucketName = "vidshare.aws-testpnoren",
+            BucketName = "vidshare-aws-testpnoren",
             Key = uniqueFileName,
             Verb = HttpVerb.PUT,
             Expires = DateTime.UtcNow.AddMinutes(10),
@@ -61,7 +61,7 @@ public class UploadController : ControllerBase
             // בדיקה 1: האם אפשר לרשום רשימת קבצים
             var listRequest = new ListObjectsV2Request
             {
-                BucketName = "vidshare.aws-testpnoren",
+                BucketName = "vidshare-aws-testpnoren",
                 MaxKeys = 1
             };
             var listResponse = await _s3Client.ListObjectsV2Async(listRequest);
@@ -69,7 +69,7 @@ public class UploadController : ControllerBase
             // בדיקה 2: האם אפשר להעלות קובץ
             var putRequest = new PutObjectRequest
             {
-                BucketName = "vidshare.aws-testpnoren",
+                BucketName = "vidshare-aws-testpnoren",
                 Key = "test-upload.txt",
                 ContentBody = "Test from API",
                 CannedACL = S3CannedACL.PublicRead
@@ -173,7 +173,7 @@ public class UploadController : ControllerBase
     {
         try
         {
-            var bucketName = "vidshare.aws-testpnoren";
+            var bucketName = "vidshare-aws-testpnoren";
 
             // בדיקה: האם ה-Bucket קיים?
             var request = new Amazon.S3.Model.GetBucketLocationRequest
