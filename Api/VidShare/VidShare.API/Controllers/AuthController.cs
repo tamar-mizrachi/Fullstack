@@ -64,6 +64,9 @@ namespace VidShare.API.Controllers
             }
 
             var user = _mapper.Map<User>(userDto);
+            ///***
+            await _userService.AddAsync(user);
+            ///***
             await _userService.AddAsync(user);
 
             var token = GenerateJwtToken(user);

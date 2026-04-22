@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LOQrJgfU87WmYbYhh+ZFVCQb/N1a46lADzpih/ur7DAwJ4nwL5jIt86Y388C/BPzoP3JP7XP5Didz7Ai3ikVAA==",
+  "dgSpecHash": "hAiHUGqVpo6P7zUXJHuRZQfyHpT6/sbhH5asuDLuSs0yEJBx6cDlMvx+1W1QKW/3GqHm0viJbH/YQfHxoxRQDQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\user1\\Documents\\תכנות תמי\\Fullstack-Project\\Api\\VidShare\\VidShare.API\\VidShare.API.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,7 @@
     "C:\\Users\\user1\\.nuget\\packages\\awssdk.s3\\4.0.0-preview.13\\awssdk.s3.4.0.0-preview.13.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
+    "C:\\Users\\user1\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.20\\microsoft.aspnetcore.authentication.jwtbearer.7.0.20.nupkg.sha512",
     "C:\\Users\\user1\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.7\\microsoft.aspnetcore.openapi.7.0.7.nupkg.sha512",
