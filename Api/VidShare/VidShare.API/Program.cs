@@ -90,12 +90,13 @@ else
 }
 
 // ✅ Database
-/*
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
-*/
+
 // ✅ Database
+/*
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     + ";Maximum Pool Size=3;Connection Timeout=30;";
 
@@ -103,7 +104,7 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
         mySqlOptions => mySqlOptions.EnableRetryOnFailure(3)
     ));
-
+*/
 // ✅ AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
