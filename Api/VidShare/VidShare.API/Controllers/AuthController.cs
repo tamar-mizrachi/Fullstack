@@ -53,7 +53,7 @@ namespace VidShare.API.Controllers
             var dbToken = GenerateJwtToken(user);
             return Ok(new { Token = dbToken, role = user.Role });
         }
-
+        /*
         [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync([FromBody] UserDTO userDto)
         {
@@ -74,7 +74,31 @@ namespace VidShare.API.Controllers
             var token = GenerateJwtToken(user);
             return Ok(new { Token = token, role = user.Role });
         }
+        */
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterAsync([FromBody] UserDTO userDto)
+        {
+            // בדיקה לפי שם בלבד – לא לפי סיסמה!
+            var allUsers = await _userService.GetAllAsync();
+            var existingUser = allUsers.FirstOrDefault(u => u.Name == userDto.Name);
+            if (existingUser != null)
+            {
+                return BadRequest("User already exists.");
+            }
 
+            var user = new User
+            {
+                Name = userDto.Name,
+                Email = userDto.Email,
+                Password = userDto.Password,
+                Role = userDto.Role ?? "Creator"
+            };
+            // Id לא מוגדר = MySQL יקבע אוטומטית
+
+            await _userService.AddAsync(user);
+            var token = GenerateJwtToken(user);
+            return Ok(new { Token = token, role = user.Role });
+        }
         private string GenerateJwtToken(User user)
         {
             try

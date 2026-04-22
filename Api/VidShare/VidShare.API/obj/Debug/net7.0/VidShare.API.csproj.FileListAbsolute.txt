@@ -101,3 +101,4 @@ C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidSha
 C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.API\bin\Debug\net7.0\System.ClientModel.dll
 C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.API\bin\Debug\net7.0\MySqlConnector.dll
 C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.API\bin\Debug\net7.0\Pomelo.EntityFrameworkCore.MySql.dll
+C:\Users\user1\Documents\תכנות תמי\Fullstack-Project\Api\VidShare\VidShare.API\bin\Debug\net7.0\BCrypt.Net-Next.dll
