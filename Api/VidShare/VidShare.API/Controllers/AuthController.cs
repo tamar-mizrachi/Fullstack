@@ -65,6 +65,8 @@ namespace VidShare.API.Controllers
 
             var user = _mapper.Map<User>(userDto);
             ///***
+             user.Id = 0; // ← הוסיפי את זה! מאפס את ה-ID
+            user.Password = BCrypt.Net.BCrypt.HashPassword(userDto.Password);
             await _userService.AddAsync(user);
             ///***
             await _userService.AddAsync(user);
