@@ -53,7 +53,7 @@ namespace VidShare.API.Controllers
             var dbToken = GenerateJwtToken(user);
             return Ok(new { Token = dbToken, role = user.Role });
         }
-        /*
+        
         [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync([FromBody] UserDTO userDto)
         {
@@ -65,16 +65,17 @@ namespace VidShare.API.Controllers
 
             var user = _mapper.Map<User>(userDto);
             ///***
-             user.Id = 0; // ← הוסיפי את זה! מאפס את ה-ID
-            user.Password = BCrypt.Net.BCrypt.HashPassword(userDto.Password);
-            await _userService.AddAsync(user);
+          //  user.Id = 0; // ← הוסיפי את זה! מאפס את ה-ID
+           // user.Password = BCrypt.Net.BCrypt.HashPassword(userDto.Password);
+           /// await _userService.AddAsync(user);
             ///***
             await _userService.AddAsync(user);
 
             var token = GenerateJwtToken(user);
             return Ok(new { Token = token, role = user.Role });
         }
-        */
+        
+        /*
         [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync([FromBody] UserDTO userDto)
         {
@@ -99,6 +100,7 @@ namespace VidShare.API.Controllers
             var token = GenerateJwtToken(user);
             return Ok(new { Token = token, role = user.Role });
         }
+        */
         private string GenerateJwtToken(User user)
         {
             try
