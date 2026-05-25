@@ -171,7 +171,7 @@ builder.Services.AddHttpClient("TranscriptionClient", client =>
 // ✅ OpenAI
 builder.Services.Configure<OpenAi>(builder.Configuration.GetSection("OpenAI"));
 builder.Services.AddHttpClient();
-builder.Services.AddScoped<OpenAIService>();
+builder.Services.AddScoped<IOpenAIService, OpenAIService>();
 
 var app = builder.Build();
 

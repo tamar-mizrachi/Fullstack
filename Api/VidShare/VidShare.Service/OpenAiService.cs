@@ -2,11 +2,13 @@
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
+using VidShare.Core.DTOs;
 using VidShare.Core.Models;
+using VidShare.Core.Services;
 
 namespace VidShare.Service
 {
-    public class OpenAIService
+    public class OpenAIService : IOpenAIService
     {
         private readonly HttpClient _client;
         private readonly string _apiKey;
@@ -17,11 +19,65 @@ namespace VidShare.Service
             _apiKey = settings.Value.ApiKey;
         }
 
+        public async Task<VideoTranscriptionResult> TranscribeFromUrlAsync(string videoUrl)
+        {
+            _client.DefaultRequestHeaders.Clear();
+
+            byte[] videoBytes;
+            try
+            {
+                videoBytes = await _client.GetByteArrayAsync(videoUrl);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to download video: {ex.Message}");
+            }
+
+            var uri = new Uri(videoUrl);
+            var fileName = Path.GetFileName(uri.LocalPath);
+            if (string.IsNullOrEmpty(fileName)) fileName = "video.mp4";
+
+            var extension = Path.GetExtension(fileName).ToLower();
+            var allowedExtensions = new[] { ".mp3", ".mp4", ".wav", ".m4a", ".webm" };
+            if (!allowedExtensions.Contains(extension))
+                fileName = Path.ChangeExtension(fileName, ".mp4");
+
+            _client.DefaultRequestHeaders.Clear();
+            _client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", _apiKey);
+
+            using var form = new MultipartFormDataContent();
+            var fileContent = new ByteArrayContent(videoBytes);
+            fileContent.Headers.ContentType = new MediaTypeHeaderValue("video/mp4");
+
+            form.Add(fileContent, "file", fileName);
+            form.Add(new StringContent("whisper-1"), "model");
+            form.Add(new StringContent("he"), "language");
+
+            var response = await _client.PostAsync(
+                "https://api.openai.com/v1/audio/transcriptions", form);
+
+            var json = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"Whisper API error: {json}");
+
+            using var doc = JsonDocument.Parse(json);
+            var transcript = doc.RootElement.GetProperty("text").GetString() ?? "";
+
+            return new VideoTranscriptionResult
+            {
+                Transcript = transcript,
+                NoSpeech = string.IsNullOrWhiteSpace(transcript)
+            };
+        }
+
         public async Task<string> SummarizeTextAsync(string text)
         {
             if (string.IsNullOrWhiteSpace(text))
                 return "⚠️ לא זוהה דיבור — ייתכן שהסרטון מכיל מוזיקה בלבד.";
 
+            _client.DefaultRequestHeaders.Clear();
             _client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", _apiKey);
 
@@ -30,7 +86,7 @@ namespace VidShare.Service
                 model = "gpt-4o-mini",
                 messages = new[]
                 {
-                    new { role = "system", content = "סכם בצורה ברורה, קצרה ועניינית. אם אין תוכן מילולי אמיתי — החזר הודעה על כך." },
+                    new { role = "system", content = "סכם בצורה ברורה, קצרה ועניינית." },
                     new { role = "user", content = text }
                 }
             };
